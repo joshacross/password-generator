@@ -11,14 +11,15 @@ var characterValues = [];
 
 // reset value each time script runs
 function resetValues() {
-  characterValues = [];
   characterLength = [];
-}
+  characterValues = [];
+};
 
-
+//prompt user for character length and password values
 function getUserInput () {
-  // alert welcome and notify rules
+  // alert welcome and notify rules of application
   window.alert("Welcome to Secure Password Generator!\n\nPlease have the following criteria available:\n\Length of password (between 8 and 128 characters)\n\u2022Select if lowercase, uppercase, numeric, and/or special characters are needed.");
+
   // receive character length
   characterLength = window.prompt("How many characters would you like your password to be?");
     // check to see if character values are not between 8 and 128
@@ -26,85 +27,65 @@ function getUserInput () {
         window.alert("please choose a number between 8 and 128");
         return getCharacterLength();
       // if values are between 8 and 128, log value
-    } else {
-        console.log(characterLength);
-    };
+    } 
+
+  // confirm if lowercase values are to be included in password
   lowercaseValues = window.confirm("Would you like your password to include lowercase values?");
-  console.log(lowercaseValues);
-  
+  // if lowercase values is true, concatenate to characterValues array
   if (lowercaseValues) {
     characterValues = characterValues.concat(lowerCase); 
   }
 
-  console.log(characterValues);
-
+  // confirm if uppercase values are to be included in password
   uppercaseValues = window.confirm("Would you like to include uppercase values?");
-  console.log(uppercaseValues);
-
+  // if uppercase values are to be included, concatenate to characterValues array
   if (uppercaseValues) {
     characterValues = characterValues.concat(upperCase);
   }
 
-  console.log(characterValues);
-
+  //confirm if numbers are to be included in password
   numberValues = window.confirm("Would you like to include numbers?");
-  console.log(numberValues);
 
+  // if numberValues is true concatenate to characterValues arry
   if (numberValues) {
     characterValues = characterValues.concat(number);
   }
 
-  console.log(characterValues);
-
+  // confirm if special characters are to be included in password
   specialCharacterValues = window.confirm("Would you like to include special characters?");
-  console.log(specialCharacterValues);
 
+  // if specialCharacterValues are to be included, concatenate to characterValues array
   if (specialCharacterValues) {
     characterValues = characterValues.concat(specialCharacters);
   }
 
-  console.log(characterValues);
-
-  // check to see if one of the values was true, if not return function
+  // conditional check to see if one of the values was true, if not return function
   if (lowercaseValues || uppercaseValues || numberValues || specialCharacterValues) {
-    console.log("characterValues selected");
+    console.log("values selected");
   } else {
     alert("password must include either lowercase, uppercase, number, or special character values in order to generate a secure password");
     return generatePassword();
   };
-
-//  var userInput = {
-//     characterLength: characterLength,
-//     lowercaseValues: lowercaseValues,
-//     uppercaseValues: uppercaseValues,
-//     numberValues: numberValues,
-//     specialCharacterValues: specialCharacterValues
-//   };
-
-//   console.log(userInput);
-
 };
 
 function generatePassword() {
-  //empty array to hold random password values
+  //local empty array to hold random password values
   var selectedPassword = [];
+
   // reset values when script runs
   resetValues();
+
   // run get user input function to prompt for length and selected characters
   getUserInput();
-  
-  // // debugger;
-  // console.log(userInput);
 
   // loop through array to randomly generate password
   for (let i = 0; i < characterLength; i++) {
     let randomPassword = characterValues[Math.floor(Math.random() * characterValues.length)];
     selectedPassword = selectedPassword.concat(randomPassword);
   };
-  console.log(selectedPassword);
 
+  // concatenate all values in array and return a new string
   var generatePassword = selectedPassword.join('');
-  console.log(generatePassword);
   return generatePassword;
 };
 
