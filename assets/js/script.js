@@ -1,15 +1,22 @@
-// empty password array
-var password = [];
-// empty characterLength array
-var characterLength = [];
-
 // declaring variable arrays 
 var lowerCase = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 var upperCase = ["A","B","C","D","E","F","G","H","I","J","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 var number = ["1","2","3","4","5","6","7","8","9"];
 var specialCharacters = ["!", "@", "#", "$", "%", "^", "&", "*", "_", "+", "-", ".", "/","<","?"];
 
-function generatePassword () {
+// empty characterLength array
+var characterLength = [];
+// empty passwordValue array
+var characterValues = [];
+
+// reset value each time script runs
+function resetValues() {
+  characterValues = [];
+  characterLength = [];
+}
+
+
+function getUserInput () {
   // alert welcome and notify rules
   window.alert("Welcome to Secure Password Generator!\n\nPlease have the following criteria available:\n\Length of password (between 8 and 128 characters)\n\u2022Select if lowercase, uppercase, numeric, and/or special characters are needed.");
   // receive character length
@@ -24,15 +31,39 @@ function generatePassword () {
     };
   lowercaseValues = window.confirm("Would you like your password to include lowercase values?");
   console.log(lowercaseValues);
+  
+  if (lowercaseValues) {
+    characterValues = characterValues.concat(lowerCase); 
+  }
+
+  console.log(characterValues);
 
   uppercaseValues = window.confirm("Would you like to include uppercase values?");
   console.log(uppercaseValues);
 
+  if (uppercaseValues) {
+    characterValues = characterValues.concat(upperCase);
+  }
+
+  console.log(characterValues);
+
   numberValues = window.confirm("Would you like to include numbers?");
   console.log(numberValues);
 
+  if (numberValues) {
+    characterValues = characterValues.concat(number);
+  }
+
+  console.log(characterValues);
+
   specialCharacterValues = window.confirm("Would you like to include special characters?");
   console.log(specialCharacterValues);
+
+  if (specialCharacterValues) {
+    characterValues = characterValues.concat(specialCharacters);
+  }
+
+  console.log(characterValues);
 
   // check to see if one of the values was true, if not return function
   if (lowercaseValues || uppercaseValues || numberValues || specialCharacterValues) {
@@ -43,79 +74,37 @@ function generatePassword () {
   };
 };
 
-generatePassword();
+function generatePassword() {
+  //empty array to hold random password values
+  var selectedPassword = [];
+  // reset values when script runs
+  resetValues();
+  // run get user input function to prompt for length and selected characters
+  getUserInput();
 
-// 3.) confirm lowerCase values + console.log 
+  // loop through array to randomly generate password
+  for (let i = 0; i < characterLength; i++) {
+    let randomPassword = characterValues[Math.floor(Math.random() * characterValues.lenth)];
+    selectedPassword = selectedPassword.concat(randomPassword);
+  };
+  console.log(selectedPassword);
 
-/*
+  var generatePassword = selectedPassword.join('');
+  console.log(generatePassword);
+  return generatePassword;
+};
 
+// Get references to the #generate element
+var generateBtn = document.querySelector("#generate");
 
-4.) Confirm UpperCase Values + console.log
-5.) Confirm Number + console.log 
-6.) Confirm Special Character + console.log
+// Write password to the #password input
+function writePassword() {
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
 
-7.) If all false then return + alert 
-
-8.) Store information into object - 
-
-var inputtedAnswers = {
-  characterLength: characterLength,
-  hasLowerCase: hasLowerCase (true)
-  hasUpperCase: hasUpperCase 
-  ...
+  passwordText.value = password;
 
 }
-return inputtedAnswers
-}
 
-var userInfo = userInput();
-var possibleCharacterOptions = [];
-var usersCharacters =[];
-
-if(userInfo.hasLowerCase) {
-  possibleCharacterOptions = possibleCharacterOptions.concat(lowerCase);
-  userCharacters.pus(getMathRandom(lowerCase)
-)}
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // Assignment code here
-
-
-// // Get references to the #generate element
-// var generateBtn = document.querySelector("#generate");
-
-// // Write password to the #password input
-// function writePassword() {
-//   var password = generatePassword();
-//   var passwordText = document.querySelector("#password");
-
-//   passwordText.value = password;
-
-// }
-
-// // Add event listener to generate button
-// generateBtn.addEventListener("click", writePassword);
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
