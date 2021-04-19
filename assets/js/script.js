@@ -72,6 +72,17 @@ function getUserInput () {
     alert("password must include either lowercase, uppercase, number, or special character values in order to generate a secure password");
     return generatePassword();
   };
+
+  var userInput = {
+    characterLength: characterLength,
+    lowercaseValues: lowercaseValues,
+    uppercaseValues: uppercaseValues,
+    numberValues: numberValues,
+    specialCharacterValues: specialCharacterValues
+  };
+
+  console.log(userInput);
+
 };
 
 function generatePassword() {
@@ -81,6 +92,9 @@ function generatePassword() {
   resetValues();
   // run get user input function to prompt for length and selected characters
   getUserInput();
+  
+  // debugger;
+  console.log(userInput);
 
   // loop through array to randomly generate password
   for (let i = 0; i < characterLength; i++) {
