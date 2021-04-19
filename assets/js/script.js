@@ -73,15 +73,15 @@ function getUserInput () {
     return generatePassword();
   };
 
-  var userInput = {
-    characterLength: characterLength,
-    lowercaseValues: lowercaseValues,
-    uppercaseValues: uppercaseValues,
-    numberValues: numberValues,
-    specialCharacterValues: specialCharacterValues
-  };
+//  var userInput = {
+//     characterLength: characterLength,
+//     lowercaseValues: lowercaseValues,
+//     uppercaseValues: uppercaseValues,
+//     numberValues: numberValues,
+//     specialCharacterValues: specialCharacterValues
+//   };
 
-  console.log(userInput);
+//   console.log(userInput);
 
 };
 
@@ -93,12 +93,12 @@ function generatePassword() {
   // run get user input function to prompt for length and selected characters
   getUserInput();
   
-  // debugger;
-  console.log(userInput);
+  // // debugger;
+  // console.log(userInput);
 
   // loop through array to randomly generate password
   for (let i = 0; i < characterLength; i++) {
-    let randomPassword = characterValues[Math.floor(Math.random() * characterValues.lenth)];
+    let randomPassword = characterValues[Math.floor(Math.random() * characterValues.length)];
     selectedPassword = selectedPassword.concat(randomPassword);
   };
   console.log(selectedPassword);
